@@ -1,16 +1,16 @@
 {
-  "name": "reactjs-vite-tailwindcss-boilerplate",
-  "description": "This is a React + vite boilerplate to be used with Tailwindcss.",
-  "version": "0.2.0",
+  "name": "cryptdao",
+  "description": "cryptdao frontend code",
+  "version": "0.1.0",
   "private": true,
   "author": {
-    "name": "João Paulo Moraes",
-    "email": "joaopaulomoraes@outlook.com",
-    "url": "https://github.com/joaopaulomoraes"
+    "name": "kula",
+    "email": "kula@live.com",
+    "url": "https://github.com/kulame/cryptdao_interface"
   },
   "bugs": {
-    "url": "https://github.com/joaopaulomoraes/reactjs-vite-tailwindcss-boilerplate/issues",
-    "email": "joaopaulomoraes@outlook.com"
+    "url": "https://github.com/kulame/cryptdao_interface/issues",
+    "email": "kula@live.com"
   },
   "scripts": {
     "dev": "vite",
