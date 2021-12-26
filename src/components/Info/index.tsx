@@ -18,6 +18,12 @@ export default function Scroller() {
                 </div>
               </div>
             </div>
+            <div className="py-3">
+              <a className="block px-4 py-2 router-link-active router-link-exact-active sidenav-item">提案</a>
+              <a className="block px-4 py-2 sidenav-item">新提案</a>
+              <a className="block px-4 py-2 sidenav-item">授权</a>
+              <a className="block px-4 py-2 sidenav-item">关于</a>
+            </div>
           </div>
           info
         </div>
