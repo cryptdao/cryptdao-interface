@@ -3,7 +3,7 @@
     "importHelpers": true,
     "baseUrl": ".",
     "paths":{
-      "@/*": ["src/*"],
+      "@/*": ["./src/*"],
     },
     "target": "esnext",
     "lib": ["dom", "dom.iterable", "esnext"],
