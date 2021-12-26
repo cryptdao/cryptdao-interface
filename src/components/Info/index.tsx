@@ -25,7 +25,6 @@ export default function Scroller() {
               <a className="block px-4 py-2 sidenav-item">关于</a>
             </div>
           </div>
-          info
         </div>
         </>
     )

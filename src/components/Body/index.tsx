@@ -1,4 +1,6 @@
-import Info from "../Info";
+import Info from "@/components/Info";
+import ProposalHeader from "../Proposal";
+import Proposals from "../Proposal/list";
 
 export default function Body() {
   return (<>
@@ -7,7 +9,8 @@ export default function Body() {
         <Info/>
       </div>
       <div className="float-right w-full pl-0 lg:w-3/4 lg:pl-5">
-        right
+        <ProposalHeader />
+        <Proposals/>
       </div>
     </div>
   </>)
