@@ -1,11 +1,11 @@
-import { StrictMode } from 'react'
+import Wrapper from '@/components/Wapper'
+import App from '@/pages/App'
 import { render } from 'react-dom'
 import 'tailwindcss/tailwind.css'
-import App from '@/pages/App'
 
 render(
-  <StrictMode>
+  <Wrapper>
     <App />
-  </StrictMode>,
+  </Wrapper>,
   document.getElementById('root')
 )
