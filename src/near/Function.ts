@@ -1,4 +1,4 @@
-import { DaoMetadata } from "@/types";
+import { Citizen, DaoMetadata } from "@/types";
 import { wallet } from "./Account";
 import { DAO_CONTRACT_ID, NearViewFunctionOptions } from "./near";
 
@@ -13,11 +13,6 @@ export const DaoViewFunction = ({
   return wallet.account().viewFunction(DAO_CONTRACT_ID, methodName, args);
 };
 
-export interface FTStorageBalance {
-  total: string;
-  available: string;
-}
-
 export const ViewFunction = (
   tokenId: string,
   { methodName, args }: NearViewFunctionOptions
@@ -27,4 +22,11 @@ export const ViewFunction = (
 
 export const daoGetMetaData = (): Promise<DaoMetadata> => {
   return DaoViewFunction({ methodName: "metadata", args: {} });
+};
+
+export const daoGetCitizen = (account_id: string): Promise<Citizen> => {
+  return DaoViewFunction({
+    methodName: "get_citizen",
+    args: { account_id: account_id },
+  });
 };

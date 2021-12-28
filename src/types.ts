@@ -15,3 +15,9 @@ export interface DaoMetadata {
   name: string;
   headcount: number;
 }
+
+export interface Citizen {
+  account_id: string;
+  role_name: string;
+  joined: number;
+}

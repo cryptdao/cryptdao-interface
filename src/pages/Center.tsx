@@ -1,13 +1,13 @@
-import Body from "@/components/Body"
-import Header from "@/components/Header"
+import Body from "@/components/Body";
+import Header from "@/components/Header";
 
 function Center() {
   return (
-    <div id="center" className="sm:ml-[68px]">
+    <div className="sm:ml-[68px]">
       <Header />
-      <Body/>
+      <Body />
     </div>
-  )
+  );
 }
 
-export default Center
+export default Center;
