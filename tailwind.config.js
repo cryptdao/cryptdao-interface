@@ -58,5 +58,5 @@ module.exports = {
       xs: ["14px", "20px"],
     },
   },
-  plugins: [require("daisyui")],
+  plugins: [],
 };

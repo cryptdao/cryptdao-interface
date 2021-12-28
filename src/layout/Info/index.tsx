@@ -28,7 +28,9 @@ export default function Info() {
               <h3 className="mx-2 mb-[2px]">{metadata.data?.name}</h3>
               <div className="mb-[12px]">{metadata.data?.headcount}成员</div>
               <div className="flex justify-center gap-x-2">
-                <button className="px-[24px] mb-4 btn btn-outline">加入</button>
+                <button className="button px-[24px] focus-within:border-skin-link mb-4">
+                  加入
+                </button>
               </div>
             </div>
           </div>
