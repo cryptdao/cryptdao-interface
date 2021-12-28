@@ -66,11 +66,31 @@
 
 html,
 body,
-#app {
+#root {
   background: var(--bg-color);
   color: var(--text-color);
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+}
+
+* {
+  outline: none !important;
+}
+
+h1,
+h2,
+h3,
+h4 {
+  color: var(--heading-color);
+  font-weight: 600;
+}
+
+b {
+  font-weight: 600;
+}
+
+#root {
+  min-height: 100vh;
 }
 
 .bg {
