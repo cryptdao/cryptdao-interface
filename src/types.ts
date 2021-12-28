@@ -10,3 +10,8 @@ export interface TokenMetadata {
   amountLabel?: string;
   amount?: number;
 }
+
+export interface DaoMetadata {
+  name: string;
+  headcount: number;
+}
