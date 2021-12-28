@@ -1,4 +1,8 @@
+import { daoGetMetaData } from "@/near/Function";
+import { useQuery } from "react-query";
+
 export default function Info() {
+  const metadata = useQuery("meta", daoGetMetaData);
   return (
     <>
       <div>
