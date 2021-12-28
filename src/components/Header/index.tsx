@@ -1,3 +1,4 @@
+import Account from "@/components/Header/Account";
 import styled from "styled-components";
 
 export const HeaderHeight = styled.div`
@@ -17,6 +18,8 @@ export const HeaderLink = styled.a`
   font-size: 24px;
   padding-top: 4px;
 `;
+
+//TODO - add the following to the Header component:
 export default function Header() {
   return (
     <>
@@ -29,11 +32,7 @@ export default function Header() {
                 <div className="flex items-center flex-auto">
                   <HeaderLink>CryptDAO</HeaderLink>
                 </div>
-                <div>
-                  <button className="px-[24px]">
-                    <span className="hidden sm:block">连接钱包</span>
-                  </button>
-                </div>
+                <Account />
               </HeaderCenter>
             </div>
           </nav>
