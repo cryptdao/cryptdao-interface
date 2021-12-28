@@ -9,7 +9,7 @@ import {
 } from 'near-api-js/lib/transaction'
 import { PublicKey } from 'near-api-js/lib/utils'
 import { createContext } from 'react'
-import { DexViewFunction } from './FT'
+import { DexViewFunction } from './Function'
 import { NearFunctionCallOptions, Transaction } from './near'
 
 const { connect, keyStores, WalletConnection } = nearAPI
