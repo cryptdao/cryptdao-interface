@@ -1,5 +1,5 @@
-import Body from "@/components/Body";
-import Header from "@/components/Header";
+import Body from "@/layout/Body";
+import Header from "@/layout/Header";
 
 function Center() {
   return (

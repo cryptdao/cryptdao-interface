@@ -1,4 +1,4 @@
-import Info from "@/components/Info";
+import Info from "@/layout/Info";
 import ProposalHeader from "@/components/Proposal";
 import Proposals from "@/components/Proposal/list";
 

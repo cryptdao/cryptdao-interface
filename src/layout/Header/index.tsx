@@ -1,4 +1,4 @@
-import Account from "@/components/Header/Account";
+import Account from "@/layout/Header/Account";
 import styled from "styled-components";
 
 export const HeaderHeight = styled.div`
@@ -26,7 +26,7 @@ export default function Header() {
       <div>
         <HeaderHeight />
         <HeaderWrapper className="left-0 fixed top-0 sm:left-[68px]">
-          <nav className="w-full border-b">
+          <nav className="w-full border-b bg">
             <div className="px-4 max-w-[1012px] mx-auto">
               <HeaderCenter className="flex items-center">
                 <div className="flex items-center flex-auto">
