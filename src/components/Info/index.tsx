@@ -2,7 +2,14 @@ import { daoGetMetaData } from "@/near/Function";
 import { useQuery } from "react-query";
 
 export default function Info() {
-  const metadata = useQuery("meta", daoGetMetaData);
+  const { isLoading, isError, data, error } = useQuery("meta", daoGetMetaData);
+
+  if (isLoading) {
+    return <div>Loading...</div>;
+  }
+  if (isError) {
+    return <span>Error:{error.message}</span>;
+  }
   return (
     <>
       <div>
