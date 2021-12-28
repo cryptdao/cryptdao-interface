@@ -1,6 +1,6 @@
 import Info from "@/components/Info";
-import ProposalHeader from "../Proposal";
-import Proposals from "../Proposal/list";
+import ProposalHeader from "@/components/Proposal";
+import Proposals from "@/components/Proposal/list";
 
 export default function Body() {
   return (

@@ -1,6 +1,11 @@
 import { daoGetMetaData } from "@/near/Function";
 import { useQuery } from "react-query";
+import styled from "styled-components";
 
+const InfoWrapper = styled.div`
+  position: fixed;
+  width: 240px;
+`;
 export default function Info() {
   const metadata = useQuery("meta", daoGetMetaData);
 
@@ -16,14 +21,14 @@ export default function Info() {
   }
   return (
     <>
-      <div>
+      <InfoWrapper>
         <div className="mb-4 overflow-hidden border-t border-b rounded-none md:rounded-lg md:border">
           <div className="leading-6">
             <div className="text-center border-b">
               <h3 className="mx-2 mb-[2px]">{metadata.data?.name}</h3>
               <div className="mb-[12px]">{metadata.data?.headcount}成员</div>
               <div className="flex justify-center gap-x-2">
-                <button className="px-[24px] mb-4">加入</button>
+                <button className="px-[24px] mb-4 btn btn-outline">加入</button>
               </div>
             </div>
           </div>
@@ -34,7 +39,7 @@ export default function Info() {
             <a className="block px-4 py-2">关于</a>
           </div>
         </div>
-      </div>
+      </InfoWrapper>
     </>
   );
 }
