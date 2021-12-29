@@ -1,3 +1,4 @@
+import { useCitizen } from "@/hooks/dao";
 import { daoGetMetaData } from "@/near/Function";
 import { Button, Skeleton } from "antd";
 import { useQuery } from "react-query";
@@ -10,8 +11,9 @@ const InfoWrapper = styled.div`
 `;
 export default function Info() {
   const metadata = useQuery("meta", daoGetMetaData);
+  const citizen = useCitizen();
 
-  if (metadata.isLoading) {
+  if (metadata.isLoading || citizen.isLoading) {
     return <Skeleton active />;
   }
   if (metadata.isError) {
@@ -30,7 +32,9 @@ export default function Info() {
               <h3 className="mx-2 mb-[2px]">{metadata.data?.name}</h3>
               <div className="mb-[12px]">{metadata.data?.headcount}成员</div>
               <div className="flex justify-center gap-x-2">
-                <Button type="text">加入</Button>
+                <Button type="text">
+                  {citizen.data?.account_id ? "已加入" : "加入"}
+                </Button>
               </div>
             </div>
           </div>
