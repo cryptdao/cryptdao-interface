@@ -10,7 +10,7 @@ const TextArea = styled.textarea`
   font-size: 18px;
 `;
 
-function Row(props) {
+function Row(props: RowProps) {
   return (
     <>
       <div className="border border-skin-border transition-colors bg-transparent text-skin-link rounded-3xl outline-none leading-[46px] text-left w-full mb-2 flex px-3">
@@ -23,7 +23,11 @@ function Row(props) {
           aria-label="input"
         />
         <span className="cursor-pointer">
-          <DeleteOutlined />
+          <DeleteOutlined
+            onClick={() => {
+              props.removeRow(props.id);
+            }}
+          />
         </span>
       </div>
     </>
@@ -32,22 +36,31 @@ function Row(props) {
 
 interface RowOption {
   id: number;
-  text: string;
 }
+
+interface RowProps {
+  id: number;
+  removeRow: (id: number) => void;
+}
+
 export default function CreateProposalPage() {
-  const [rows, setRows] = useState([{ id: 1, text: "" }]);
+  const [rows, setRows] = useState([{ id: 1 }]);
+  const addRow = () => {
+    setRows((rows) => [...rows, { id: rows.length + 1, removeRow: removeRow }]);
+  };
+  const removeRow = (i: number) => {
+    setRows((rows: Array<RowOption>) => {
+      return rows.filter((row) => row.id != i);
+    });
+  };
 
   const rowsElement = rows.map((row) => {
     return (
       <li>
-        <Row id={row["id"]} />
+        <Row id={row["id"]} removeRow={removeRow} />
       </li>
     );
   });
-
-  const addRow = () => {
-    setRows((rows) => [...rows, { id: rows.length + 1, text: "" }]);
-  };
 
   return (
     <>
