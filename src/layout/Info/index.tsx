@@ -1,6 +1,7 @@
 import { daoGetMetaData } from "@/near/Function";
 import { Button, Skeleton } from "antd";
 import { useQuery } from "react-query";
+import { Link } from "react-router-dom";
 import styled from "styled-components";
 
 const InfoWrapper = styled.div`
@@ -34,10 +35,18 @@ export default function Info() {
             </div>
           </div>
           <div className="py-3">
-            <a className="block px-4 py-2">提案</a>
-            <a className="block px-4 py-2">新提案</a>
-            <a className="block px-4 py-2">授权</a>
-            <a className="block px-4 py-2">关于</a>
+            <Link className="block px-4 py-2" to="/proposal">
+              提案
+            </Link>
+            <Link className="block px-4 py-2" to="/proposal">
+              新提案
+            </Link>
+            <Link className="block px-4 py-2" to="/proposal">
+              授权
+            </Link>
+            <Link className="block px-4 py-2" to="/proposal">
+              关于
+            </Link>
           </div>
         </div>
       </InfoWrapper>

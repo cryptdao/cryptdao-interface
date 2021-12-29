@@ -1,11 +1,13 @@
-import Scroller from "@/components/Scroller";
-import Center from "@/pages/Center";
+import { Route, Routes } from "react-router-dom";
+import ProposalPage from "./ProposalPage";
 
 function App() {
   return (
     <div id="app" className="pb-4 overflow-hidden font-serif text-base">
-      <Scroller />
-      <Center />
+      <Routes>
+        <Route path="/" element={<ProposalPage />} />
+        <Route path="/proposal" element={<ProposalPage />} />
+      </Routes>
     </div>
   );
 }
