@@ -1,4 +1,5 @@
 import { daoGetMetaData } from "@/near/Function";
+import { Button, Skeleton } from "antd";
 import { useQuery } from "react-query";
 import styled from "styled-components";
 
@@ -10,7 +11,7 @@ export default function Info() {
   const metadata = useQuery("meta", daoGetMetaData);
 
   if (metadata.isLoading) {
-    return <div>Loading...</div>;
+    return <Skeleton active />;
   }
   if (metadata.isError) {
     return (
@@ -28,9 +29,7 @@ export default function Info() {
               <h3 className="mx-2 mb-[2px]">{metadata.data?.name}</h3>
               <div className="mb-[12px]">{metadata.data?.headcount}成员</div>
               <div className="flex justify-center gap-x-2">
-                <button className="button px-[24px] focus-within:border-skin-link mb-4">
-                  加入
-                </button>
+                <Button type="text">加入</Button>
               </div>
             </div>
           </div>
