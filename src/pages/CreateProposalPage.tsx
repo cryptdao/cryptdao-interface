@@ -123,17 +123,8 @@ export default function CreateProposalPage() {
                     <Option value="c">二次投票</Option>
                     <Option value="d">选择排序投票</Option>
                   </Select>
-                  <DatePicker
-                    className="w-full"
-                    showTime
-                    placeholder="选择开始时间"
-                  />
-                  <DatePicker
-                    className="w-full"
-                    showTime
-                    placeholder="选择结束时间"
-                  />
-                  ,
+                  <DatePicker className="w-full" placeholder="选择开始日期" />
+                  <DatePicker className="w-full" placeholder="选择结束日期" />,
                 </Space>
                 ,
               </div>
