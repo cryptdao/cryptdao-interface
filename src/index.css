@@ -1,6 +1,20 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+@font-face {
+  font-family: "iconfont"; /* Project id 1946815 */
+  src: url("/fonts/iconfont.woff2?t=1639572272378") format("woff2"),
+    url("/fonts/iconfont.woff?t=1639572272378") format("woff"),
+    url("/fonts/iconfont.ttf?t=1639572272378") format("truetype");
+}
+
+.iconfont {
+  font-family: "iconfont" !important;
+  font-size: 16px;
+  font-style: normal;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
 
 :root,
 .light-mode {
@@ -71,10 +85,6 @@ body,
   color: var(--text-color);
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-}
-
-* {
-  outline: none !important;
 }
 
 h1,

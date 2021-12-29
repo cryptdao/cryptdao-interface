@@ -1,6 +1,7 @@
 lockfileVersion: 5.3
 
 specifiers:
+  '@ant-design/icons': ^4.7.0
   '@babel/core': ^7.16.0
   '@babel/preset-env': ^7.16.4
   '@babel/preset-react': ^7.16.0
@@ -43,6 +44,7 @@ specifiers:
   vite-tsconfig-paths: ^3.3.17
 
 dependencies:
+  '@ant-design/icons': registry.npmmirror.com/@ant-design/icons/4.7.0_react-dom@17.0.2+react@17.0.2
   '@types/bn.js': registry.npmmirror.com/@types/bn.js/5.1.0
   '@types/styled-components': registry.npmmirror.com/@types/styled-components/5.1.19
   '@typescript-eslint/parser': registry.npmmirror.com/@typescript-eslint/parser/5.8.0_eslint@8.5.0+typescript@4.5.4
