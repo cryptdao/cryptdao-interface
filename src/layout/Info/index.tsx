@@ -42,7 +42,7 @@ export default function Info() {
             <Link className="block px-4 py-2" to="/proposal">
               提案
             </Link>
-            <Link className="block px-4 py-2" to="/proposal">
+            <Link className="block px-4 py-2" to="/create">
               新提案
             </Link>
             <Link className="block px-4 py-2" to="/proposal">
