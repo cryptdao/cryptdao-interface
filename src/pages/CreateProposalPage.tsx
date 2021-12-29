@@ -1,8 +1,10 @@
 import Layout from "@/layout";
 import { DeleteOutlined } from "@ant-design/icons";
-import { PageHeader } from "antd";
+import { DatePicker, PageHeader, Select, Space } from "antd";
 import { useState } from "react";
 import styled from "styled-components";
+const { RangePicker } = DatePicker;
+const { Option } = Select;
 const TextArea = styled.textarea`
   resize: none;
   height: 70px;
@@ -15,7 +17,7 @@ function Row(props: RowProps) {
     <>
       <div className="border border-skin-border transition-colors bg-transparent text-skin-link rounded-3xl outline-none leading-[46px] text-left w-full mb-2 flex px-3">
         <div className="mr-2 text-color whitespace-nowrap">
-          <span className="text-skin-link">{props.id}</span>
+          <span className="text-skin-link">{props.show_id}</span>
         </div>
         <input
           className="flex-auto w-full text-center input"
@@ -34,30 +36,31 @@ function Row(props: RowProps) {
   );
 }
 
-interface RowOption {
-  id: number;
-}
-
 interface RowProps {
   id: number;
+  show_id: number;
   removeRow: (id: number) => void;
 }
 
 export default function CreateProposalPage() {
-  const [rows, setRows] = useState([{ id: 1 }]);
+  const [maxid, setMaxid] = useState(0);
+  const [rows, setRows] = useState([maxid]);
+
   const addRow = () => {
-    setRows((rows) => [...rows, { id: rows.length + 1, removeRow: removeRow }]);
+    setRows((rows) => [...rows, maxid + 1]);
+    setMaxid((maxid) => maxid + 1);
   };
+
   const removeRow = (i: number) => {
-    setRows((rows: Array<RowOption>) => {
-      return rows.filter((row) => row.id != i);
+    setRows((rows: Array<number>) => {
+      return rows.filter((row) => i != row);
     });
   };
 
-  const rowsElement = rows.map((row) => {
+  const rowsElement = rows.map((row, i) => {
     return (
-      <li>
-        <Row id={row["id"]} removeRow={removeRow} />
+      <li key={row}>
+        <Row id={row} show_id={i + 1} removeRow={removeRow} />
       </li>
     );
   });
@@ -97,6 +100,43 @@ export default function CreateProposalPage() {
               >
                 添加选项
               </button>
+            </div>
+          </div>
+        </div>
+        <div className="float-left w-full lg:w-4/12">
+          <div className="mb-4 border-t border-b rounded-none md:border md:rounded-lg bg-skin-block-bg">
+            <h4 className="block px-4 pt-3 border-b rounded-t-none bg-skin-header-bg md:rounded-t-lg">
+              行动
+            </h4>
+            <div className="p-4 leading-6">
+              <div className="mb-2">
+                <Space direction="vertical" size={12}>
+                  <Select
+                    showSearch
+                    placeholder="Select a person"
+                    optionFilterProp="children"
+                    className="w-full"
+                    defaultValue="a"
+                  >
+                    <Option value="a">单选投票</Option>
+                    <Option value="b">批准表决</Option>
+                    <Option value="c">二次投票</Option>
+                    <Option value="d">选择排序投票</Option>
+                  </Select>
+                  <DatePicker
+                    className="w-full"
+                    showTime
+                    placeholder="选择开始时间"
+                  />
+                  <DatePicker
+                    className="w-full"
+                    showTime
+                    placeholder="选择结束时间"
+                  />
+                  ,
+                </Space>
+                ,
+              </div>
             </div>
           </div>
         </div>
