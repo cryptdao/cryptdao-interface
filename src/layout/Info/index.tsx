@@ -1,10 +1,12 @@
 import { useCitizen } from "@/hooks/dao";
 import { daoGetMetaData } from "@/near/Function";
+import { fromIndex } from "@/state";
 import { Button, Skeleton } from "antd";
+import { useEffect } from "react";
 import { useQuery } from "react-query";
 import { Link } from "react-router-dom";
+import { useRecoilState } from "recoil";
 import styled from "styled-components";
-
 const InfoWrapper = styled.div`
   position: fixed;
   width: 240px;
@@ -12,6 +14,17 @@ const InfoWrapper = styled.div`
 export default function Info() {
   const metadata = useQuery("meta", daoGetMetaData);
   const citizen = useCitizen();
+  const [from, setFrom] = useRecoilState(fromIndex);
+
+  useEffect(() => {
+    /// set lastIndex state
+    const last_proposal = metadata.data?.last_proposal_id || 0;
+    let last_index = 0;
+    if (last_proposal > 10) {
+      last_index = last_proposal - 10;
+    }
+    setFrom(last_index);
+  }, [metadata]);
 
   if (metadata.isLoading || citizen.isLoading) {
     return <Skeleton active />;
@@ -23,6 +36,7 @@ export default function Info() {
       </span>
     );
   }
+
   return (
     <>
       <InfoWrapper>

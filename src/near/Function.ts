@@ -1,4 +1,4 @@
-import { Citizen, DaoMetadata } from "@/types";
+import { Citizen, DaoMetadata, Proposal } from "@/types";
 import { wallet } from "./Account";
 import { DAO_CONTRACT_ID, NearViewFunctionOptions } from "./near";
 
@@ -28,5 +28,12 @@ export const daoGetCitizen = (account_id: string): Promise<Citizen> => {
   return DaoViewFunction({
     methodName: "get_citizen",
     args: { account_id: account_id },
+  });
+};
+
+export const daoGetProposals = (from_index: number): Promise<Proposal[]> => {
+  return DaoViewFunction({
+    methodName: "get_proposals",
+    args: { from_index: from_index, count: 10 },
   });
 };

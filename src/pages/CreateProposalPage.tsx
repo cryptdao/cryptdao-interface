@@ -116,12 +116,16 @@ export default function CreateProposalPage() {
                     placeholder="Select a person"
                     optionFilterProp="children"
                     className="w-full"
-                    defaultValue="a"
+                    defaultValue="Vote"
                   >
-                    <Option value="a">单选投票</Option>
-                    <Option value="b">批准表决</Option>
-                    <Option value="c">二次投票</Option>
-                    <Option value="d">选择排序投票</Option>
+                    <Option value="Vote">投票</Option>
+                    <Option value="Transfer">"转账"</Option>
+                    <Option value="UpgradeSelf">升级</Option>
+                    <Option value="ChangePolicy">政策变更</Option>
+                    <Option value="AddMemberToRole">添加成员</Option>
+                    <Option value="RemoveMemberFromRole">移除成员</Option>
+                    <Option value="FunctionCall">调用函数</Option>
+                    <Option value="UpgradeRemote">远程升级</Option>
                   </Select>
                   <DatePicker className="w-full" placeholder="选择开始日期" />
                   <DatePicker className="w-full" placeholder="选择结束日期" />,
