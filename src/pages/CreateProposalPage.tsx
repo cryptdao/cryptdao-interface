@@ -1,6 +1,6 @@
 import Layout from "@/layout";
 import { DeleteOutlined } from "@ant-design/icons";
-import { DatePicker, PageHeader, Select, Space } from "antd";
+import { Button, DatePicker, PageHeader, Select, Space } from "antd";
 import { useState } from "react";
 import styled from "styled-components";
 const { RangePicker } = DatePicker;
@@ -128,7 +128,8 @@ export default function CreateProposalPage() {
                     <Option value="UpgradeRemote">远程升级</Option>
                   </Select>
                   <DatePicker className="w-full" placeholder="选择开始日期" />
-                  <DatePicker className="w-full" placeholder="选择结束日期" />,
+                  <DatePicker className="w-full" placeholder="选择结束日期" />
+                  <Button className="w-full">发布</Button>
                 </Space>
                 ,
               </div>
