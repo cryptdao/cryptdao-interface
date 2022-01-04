@@ -36,8 +36,9 @@ export interface VoteKind extends Kind {
   votes: Map<string, VoteOption[]>;
   option_counts: Map<string, number>;
 }
-export interface Proposal {
+export interface ProposalType {
   id: number;
+  proposer: string;
   title: string;
   description: string;
   submission_time: number;
@@ -46,3 +47,5 @@ export interface Proposal {
   status: string;
   kind: Kind;
 }
+
+export const PAGE_SIZE = 10;

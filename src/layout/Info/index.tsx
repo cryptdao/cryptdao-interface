@@ -1,6 +1,7 @@
 import { useCitizen } from "@/hooks/dao";
 import { daoGetMetaData } from "@/near/Function";
-import { fromIndex } from "@/state";
+import { FromIndex } from "@/state";
+import { PAGE_SIZE } from "@/types";
 import { Button, Skeleton } from "antd";
 import { useEffect } from "react";
 import { useQuery } from "react-query";
@@ -14,14 +15,14 @@ const InfoWrapper = styled.div`
 export default function Info() {
   const metadata = useQuery("meta", daoGetMetaData);
   const citizen = useCitizen();
-  const [from, setFrom] = useRecoilState(fromIndex);
+  const [from, setFrom] = useRecoilState(FromIndex);
 
   useEffect(() => {
     /// set lastIndex state
     const last_proposal = metadata.data?.last_proposal_id || 0;
     let last_index = 0;
-    if (last_proposal > 10) {
-      last_index = last_proposal - 10;
+    if (last_proposal > PAGE_SIZE) {
+      last_index = last_proposal - PAGE_SIZE;
     }
     setFrom(last_index);
   }, [metadata]);

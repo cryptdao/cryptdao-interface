@@ -1,6 +1,6 @@
 import { atom } from "recoil";
 
-export const fromIndex = atom({
-  key: "fromIndex",
+export const FromIndex = atom({
+  key: "FromIndex",
   default: 0,
 });
