@@ -1,7 +1,7 @@
 import { Citizen, DaoMetadata, PAGE_SIZE, ProposalType } from "@/types";
-import { wallet } from "./Account";
-import { DAO_CONTRACT_ID, NearViewFunctionOptions } from "./near";
-
+import { DAO_CONTRACT_ID, wallet } from "./Account";
+import { getAmount, getGas } from "./helper";
+import { NearFunctionCallOptions, NearViewFunctionOptions } from "./near";
 export const ONE_YOCTO_NEAR = "0.000000000000000000000001";
 export const ONE_MORE_DEPOSIT_AMOUNT = "0.01";
 
@@ -11,6 +11,22 @@ export const DaoViewFunction = ({
 }: NearViewFunctionOptions) => {
   //console.log(`call ${methodName} with args: ${JSON.stringify(args)}`);
   return wallet.account().viewFunction(DAO_CONTRACT_ID, methodName, args);
+};
+
+export const DaoFunctionCall = ({
+  methodName,
+  args,
+  gas,
+  amount,
+}: NearFunctionCallOptions) => {
+  const val = getAmount(amount);
+  return wallet.account().functionCall({
+    contractId: DAO_CONTRACT_ID,
+    methodName: methodName,
+    args: args,
+    gas: getGas(gas),
+    attachedDeposit: getAmount(amount),
+  });
 };
 
 export const ViewFunction = (

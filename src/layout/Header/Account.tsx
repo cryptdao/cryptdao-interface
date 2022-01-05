@@ -1,5 +1,4 @@
-import { wallet } from "@/near/Account";
-import { DAO_CONTRACT_ID } from "@/near/near";
+import { DAO_CONTRACT_ID, wallet } from "@/near/Account";
 import { useState } from "react";
 
 export default function Account() {
