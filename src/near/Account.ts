@@ -14,6 +14,7 @@ const config = {
 };
 
 export const ACCOUNT_MIN_STORAGE_AMOUNT = "0.003";
+export const MIN_GAS = "100000000000000";
 export const near = new Near(config);
 
 export const wallet = new WalletConnection(near, null);

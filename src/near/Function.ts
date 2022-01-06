@@ -1,5 +1,6 @@
-import { Citizen, DaoMetadata, PAGE_SIZE, ProposalType } from "@/types";
-import { DAO_CONTRACT_ID, wallet } from "./Account";
+import { Citizen, DaoMetadata, PAGE_SIZE, ProposalProps } from "@/types";
+import { FinalExecutionOutcome } from "near-api-js/lib/providers";
+import { DAO_CONTRACT_ID, MIN_GAS, wallet } from "./Account";
 import { getAmount, getGas } from "./helper";
 import { NearFunctionCallOptions, NearViewFunctionOptions } from "./near";
 export const ONE_YOCTO_NEAR = "0.000000000000000000000001";
@@ -49,10 +50,20 @@ export const daoGetCitizen = (account_id: string): Promise<Citizen> => {
 
 export const daoGetProposals = (
   from_index: number
-): Promise<ProposalType[]> => {
-  console.log(from_index);
+): Promise<ProposalProps[]> => {
   return DaoViewFunction({
     methodName: "get_proposals",
     args: { from_index: from_index, limit: PAGE_SIZE },
+  });
+};
+
+export const daoAddProposal = async (
+  props: ProposalProps
+): Promise<FinalExecutionOutcome> => {
+  return DaoFunctionCall({
+    methodName: "add_proposal",
+    args: { ...props },
+    gas: MIN_GAS,
+    amount: ONE_YOCTO_NEAR,
   });
 };

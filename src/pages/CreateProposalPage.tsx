@@ -1,7 +1,12 @@
 import Layout from "@/layout";
+import { daoAddProposal } from "@/near/Function";
+import { OwnerState } from "@/state";
+import { ProposalProps } from "@/types";
 import { DeleteOutlined } from "@ant-design/icons";
 import { Button, DatePicker, PageHeader, Select, Space } from "antd";
 import { useState } from "react";
+import { useMutation } from "react-query";
+import { useRecoilValue } from "recoil";
 import styled from "styled-components";
 const { RangePicker } = DatePicker;
 const { Option } = Select;
@@ -45,7 +50,9 @@ interface RowProps {
 export default function CreateProposalPage() {
   const [maxid, setMaxid] = useState(0);
   const [rows, setRows] = useState([maxid]);
-
+  const submit = useMutation((props: ProposalProps) => daoAddProposal(props));
+  const owner = useRecoilValue(OwnerState);
+  console.log(owner);
   const addRow = () => {
     setRows((rows) => [...rows, maxid + 1]);
     setMaxid((maxid) => maxid + 1);
@@ -129,7 +136,17 @@ export default function CreateProposalPage() {
                   </Select>
                   <DatePicker className="w-full" placeholder="选择开始日期" />
                   <DatePicker className="w-full" placeholder="选择结束日期" />
-                  <Button className="w-full">发布</Button>
+                  <Button
+                    className="w-full"
+                    onClick={() => {
+                      const props: ProposalProps = {
+                        proposer: citizen.data?.account_id,
+                      };
+                      console.log("submit");
+                    }}
+                  >
+                    发布
+                  </Button>
                 </Space>
                 ,
               </div>

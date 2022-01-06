@@ -23,7 +23,6 @@ export default function Proposals() {
   }
 
   const ProposalList = proposals.data?.map((proposal) => {
-    console.log(proposal);
     return (
       <li key={proposal.id}>
         <Proposal {...proposal} />

@@ -1,6 +1,6 @@
-import { useCitizen } from "@/hooks/dao";
-import { daoGetMetaData } from "@/near/Function";
-import { FromIndex } from "@/state";
+import { wallet } from "@/near/Account";
+import { daoGetCitizen, daoGetMetaData } from "@/near/Function";
+import { FromIndex, OwnerState } from "@/state";
 import { PAGE_SIZE } from "@/types";
 import { Button, Skeleton } from "antd";
 import { useEffect } from "react";
@@ -14,8 +14,15 @@ const InfoWrapper = styled.div`
 `;
 export default function Info() {
   const metadata = useQuery("meta", daoGetMetaData);
-  const citizen = useCitizen();
+
   const [from, setFrom] = useRecoilState(FromIndex);
+
+  const [owner, setOwner] = useRecoilState(OwnerState);
+
+  const citizen = useQuery("owner", async () => {
+    const accountName = wallet.getAccountId() as string;
+    return daoGetCitizen(accountName);
+  });
 
   useEffect(() => {
     /// set lastIndex state
@@ -26,6 +33,12 @@ export default function Info() {
     }
     setFrom(last_index);
   }, [metadata]);
+
+  useEffect(() => {
+    if (citizen.isSuccess) {
+      setOwner(citizen.data);
+    }
+  }, [citizen]);
 
   if (metadata.isLoading || citizen.isLoading) {
     return <Skeleton active />;

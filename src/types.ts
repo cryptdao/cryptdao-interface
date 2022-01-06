@@ -36,8 +36,8 @@ export interface VoteKind extends Kind {
   votes: Map<string, VoteOption[]>;
   option_counts: Map<string, number>;
 }
-export interface ProposalType {
-  id: number;
+export interface ProposalProps {
+  id?: number;
   proposer: string;
   title: string;
   description: string;
