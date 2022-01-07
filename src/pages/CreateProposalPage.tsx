@@ -1,10 +1,12 @@
 import Layout from "@/layout";
 import { daoAddProposal } from "@/near/Function";
 import { OwnerState } from "@/state";
-import { ProposalProps } from "@/types";
+import { KindType, ProposalProps } from "@/types";
 import { DeleteOutlined } from "@ant-design/icons";
-import { Button, DatePicker, PageHeader, Select, Space } from "antd";
-import { useState } from "react";
+import { Alert, Button, DatePicker, PageHeader, Select, Space } from "antd";
+import { row } from "mathjs";
+import { Moment } from "moment";
+import { useRef, useState } from "react";
 import { useMutation } from "react-query";
 import { useRecoilValue } from "recoil";
 import styled from "styled-components";
@@ -27,7 +29,11 @@ function Row(props: RowProps) {
         <input
           className="flex-auto w-full text-center input"
           type="text"
+          id={`row-${row}`}
           aria-label="input"
+          onChange={(e) => {
+            props.onChange(props.id, e.target.value);
+          }}
         />
         <span className="cursor-pointer">
           <DeleteOutlined
@@ -45,36 +51,99 @@ interface RowProps {
   id: number;
   show_id: number;
   removeRow: (id: number) => void;
+  onChange: (id: number, value: string) => void;
 }
 
+interface RowData {
+  id: number;
+  value: string;
+}
+
+const nanoSeconds = (date: Moment | null) =>
+  date ? date.unix() * 1_000_000_000 : 0;
 export default function CreateProposalPage() {
   const [maxid, setMaxid] = useState(0);
-  const [rows, setRows] = useState([maxid]);
+  const [rows, setRows] = useState<RowData[]>([{ id: maxid, value: "" }]);
   const submit = useMutation((props: ProposalProps) => daoAddProposal(props));
   const owner = useRecoilValue(OwnerState);
-  console.log(owner);
+
+  const [visible, setVisible] = useState(false);
+  const [msg, setMsg] = useState("");
+  const titleRef = useRef<HTMLInputElement>(null);
+  const descRef = useRef<HTMLTextAreaElement>(null);
+  const [proposalStartTime, setProposalStartTime] = useState<Moment | null>(
+    null
+  );
+  const [proposalEndTime, setProposalEndTime] = useState<Moment | null>(null);
+
+  const [kind, setKind] = useState<KindType>(KindType.VoteKind);
+  console.log(kind);
+
+  const handleKindChange = (value: KindType) => {
+    setKind(value);
+  };
   const addRow = () => {
-    setRows((rows) => [...rows, maxid + 1]);
+    setRows((rows) => [...rows, { id: maxid + 1, value: "" }]);
     setMaxid((maxid) => maxid + 1);
   };
 
   const removeRow = (i: number) => {
-    setRows((rows: Array<number>) => {
-      return rows.filter((row) => i != row);
+    setRows((rows: RowData[]) => {
+      return rows.filter((row) => i != row.id);
+    });
+  };
+
+  const onChange = (i: number, value: string) => {
+    setRows((rows: RowData[]) => {
+      return rows.map((row) => {
+        if (row.id === i) {
+          row.value = value;
+        }
+        return row;
+      });
     });
   };
 
   const rowsElement = rows.map((row, i) => {
     return (
-      <li key={row}>
-        <Row id={row} show_id={i + 1} removeRow={removeRow} />
+      <li key={row.id}>
+        <Row
+          id={row.id}
+          show_id={i + 1}
+          removeRow={removeRow}
+          onChange={onChange}
+        />
       </li>
     );
   });
 
+  const onProposalStartTimeChange = (
+    date: Moment | null,
+    dateString: string | null
+  ) => {
+    setProposalStartTime(date);
+  };
+
+  const onProposalEndTimeChange = (
+    date: Moment | null,
+    dateString: string | null
+  ) => {
+    setProposalEndTime(date);
+  };
+
   return (
     <>
       <Layout>
+        {visible ? (
+          <Alert
+            message={msg}
+            type="error"
+            closable
+            onClose={() => {
+              setVisible(false);
+            }}
+          />
+        ) : null}
         <div className="float-left w-full pr-0 lg:w-8/12 lg:pr-5">
           <div className="px-4 overflow-hidden md:px-0">
             <PageHeader
@@ -89,8 +158,13 @@ export default function CreateProposalPage() {
               <input
                 className="mb-2 text-2xl font-bold input"
                 placeholder="问题"
+                ref={titleRef}
               />
-              <TextArea className="pt-0 input" placeholder="您的建议是什么?" />
+              <TextArea
+                ref={descRef}
+                className="pt-0 input"
+                placeholder="您的建议是什么?"
+              />
             </div>
           </div>
           <div className="mb-4 border-t border-b rounded-none md:border md:rounded-lg bg-skin-block-bg">
@@ -123,9 +197,10 @@ export default function CreateProposalPage() {
                     placeholder="Select a person"
                     optionFilterProp="children"
                     className="w-full"
-                    defaultValue="Vote"
+                    defaultValue={kind}
+                    onChange={handleKindChange}
                   >
-                    <Option value="Vote">投票</Option>
+                    <Option value={KindType.VoteKind}>投票</Option>
                     <Option value="Transfer">"转账"</Option>
                     <Option value="UpgradeSelf">升级</Option>
                     <Option value="ChangePolicy">政策变更</Option>
@@ -134,15 +209,50 @@ export default function CreateProposalPage() {
                     <Option value="FunctionCall">调用函数</Option>
                     <Option value="UpgradeRemote">远程升级</Option>
                   </Select>
-                  <DatePicker className="w-full" placeholder="选择开始日期" />
-                  <DatePicker className="w-full" placeholder="选择结束日期" />
+                  <DatePicker
+                    className="w-full"
+                    placeholder="选择开始日期"
+                    value={proposalStartTime}
+                    onChange={onProposalStartTimeChange}
+                  />
+                  <DatePicker
+                    className="w-full"
+                    placeholder="选择结束日期"
+                    value={proposalEndTime}
+                    onChange={onProposalEndTimeChange}
+                  />
                   <Button
                     className="w-full"
                     onClick={() => {
+                      if (!titleRef.current || titleRef.current.value === "") {
+                        setMsg("请输入标题");
+                        setVisible(true);
+                        return;
+                      }
+                      if (!descRef.current || descRef.current.value === "") {
+                        setMsg("请输入描述");
+                        setVisible(true);
+                        return;
+                      }
+                      if (!proposalStartTime) {
+                        setMsg("请选择开始日期");
+                        setVisible(true);
+                      }
+                      if (!proposalEndTime) {
+                        setMsg("请选择结束日期");
+                        setVisible(true);
+                      }
+                      rows.map((row) => {
+                        console.log(row);
+                      });
                       const props: ProposalProps = {
-                        proposer: citizen.data?.account_id,
+                        proposer: owner.account_id,
+                        title: titleRef.current.value,
+                        description: descRef.current.value,
+                        proposal_start_time: nanoSeconds(proposalStartTime),
+                        proposal_end_time: nanoSeconds(proposalEndTime),
                       };
-                      console.log("submit");
+                      console.log(props);
                     }}
                   >
                     发布

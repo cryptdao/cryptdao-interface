@@ -36,16 +36,25 @@ export interface VoteKind extends Kind {
   votes: Map<string, VoteOption[]>;
   option_counts: Map<string, number>;
 }
+
+export enum KindType {
+  VoteKind,
+}
 export interface ProposalProps {
   id?: number;
   proposer: string;
   title: string;
   description: string;
-  submission_time: number;
+  submission_time?: number;
   proposal_start_time: number;
   proposal_end_time: number;
-  status: string;
+  status?: string;
   kind: Kind;
 }
 
 export const PAGE_SIZE = 10;
+
+export interface VoteOption {
+  name: string;
+  content: string;
+}
