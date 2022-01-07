@@ -25,20 +25,14 @@ export interface Citizen {
 
 export interface Kind {}
 
-export interface VoteOption {
-  name: string;
-  content: string;
-}
-
 export interface Kind {}
+
 export interface VoteKind extends Kind {
   options: VoteOption[];
-  votes: Map<string, VoteOption[]>;
-  option_counts: Map<string, number>;
 }
 
 export enum KindType {
-  VoteKind,
+  VoteKind = "Vote",
 }
 export interface ProposalProps {
   id?: number;
@@ -55,6 +49,6 @@ export interface ProposalProps {
 export const PAGE_SIZE = 10;
 
 export interface VoteOption {
-  name: string;
-  content: string;
+  id: number;
+  value: string;
 }

@@ -1,7 +1,7 @@
 import Layout from "@/layout";
 import { daoAddProposal } from "@/near/Function";
 import { OwnerState } from "@/state";
-import { KindType, ProposalProps } from "@/types";
+import { Kind, KindType, ProposalProps, VoteOption } from "@/types";
 import { DeleteOutlined } from "@ant-design/icons";
 import { Alert, Button, DatePicker, PageHeader, Select, Space } from "antd";
 import { row } from "mathjs";
@@ -10,7 +10,6 @@ import { useRef, useState } from "react";
 import { useMutation } from "react-query";
 import { useRecoilValue } from "recoil";
 import styled from "styled-components";
-const { RangePicker } = DatePicker;
 const { Option } = Select;
 const TextArea = styled.textarea`
   resize: none;
@@ -54,16 +53,11 @@ interface RowProps {
   onChange: (id: number, value: string) => void;
 }
 
-interface RowData {
-  id: number;
-  value: string;
-}
-
 const nanoSeconds = (date: Moment | null) =>
   date ? date.unix() * 1_000_000_000 : 0;
 export default function CreateProposalPage() {
   const [maxid, setMaxid] = useState(0);
-  const [rows, setRows] = useState<RowData[]>([{ id: maxid, value: "" }]);
+  const [rows, setRows] = useState<VoteOption[]>([{ id: maxid, value: "" }]);
   const submit = useMutation((props: ProposalProps) => daoAddProposal(props));
   const owner = useRecoilValue(OwnerState);
 
@@ -88,13 +82,13 @@ export default function CreateProposalPage() {
   };
 
   const removeRow = (i: number) => {
-    setRows((rows: RowData[]) => {
+    setRows((rows: VoteOption[]) => {
       return rows.filter((row) => i != row.id);
     });
   };
 
   const onChange = (i: number, value: string) => {
-    setRows((rows: RowData[]) => {
+    setRows((rows: VoteOption[]) => {
       return rows.map((row) => {
         if (row.id === i) {
           row.value = value;
@@ -242,15 +236,21 @@ export default function CreateProposalPage() {
                         setMsg("请选择结束日期");
                         setVisible(true);
                       }
-                      rows.map((row) => {
-                        console.log(row);
-                      });
+
+                      let kindData: Kind = {};
+                      if (kind === KindType.VoteKind) {
+                        kindData = {
+                          type: kind,
+                          options: rows,
+                        };
+                      }
                       const props: ProposalProps = {
                         proposer: owner.account_id,
                         title: titleRef.current.value,
                         description: descRef.current.value,
                         proposal_start_time: nanoSeconds(proposalStartTime),
                         proposal_end_time: nanoSeconds(proposalEndTime),
+                        kind: kindData,
                       };
                       console.log(props);
                     }}
