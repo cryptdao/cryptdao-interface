@@ -231,10 +231,12 @@ export default function CreateProposalPage() {
                       if (!proposalStartTime) {
                         setMsg("请选择开始日期");
                         setVisible(true);
+                        return;
                       }
                       if (!proposalEndTime) {
                         setMsg("请选择结束日期");
                         setVisible(true);
+                        return;
                       }
 
                       let kindData: Kind = {};
@@ -253,6 +255,7 @@ export default function CreateProposalPage() {
                         kind: kindData,
                       };
                       console.log(props);
+                      submit.mutate(props);
                     }}
                   >
                     发布

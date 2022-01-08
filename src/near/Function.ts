@@ -4,6 +4,7 @@ import { DAO_CONTRACT_ID, MIN_GAS, wallet } from "./Account";
 import { getAmount, getGas } from "./helper";
 import { NearFunctionCallOptions, NearViewFunctionOptions } from "./near";
 export const ONE_YOCTO_NEAR = "0.000000000000000000000001";
+export const ONE_NEAR = "1";
 export const ONE_MORE_DEPOSIT_AMOUNT = "0.01";
 
 export const DaoViewFunction = ({
@@ -62,8 +63,8 @@ export const daoAddProposal = async (
 ): Promise<FinalExecutionOutcome> => {
   return DaoFunctionCall({
     methodName: "add_proposal",
-    args: { ...props },
+    args: { proposal: props },
     gas: MIN_GAS,
-    amount: ONE_YOCTO_NEAR,
+    amount: ONE_NEAR,
   });
 };
