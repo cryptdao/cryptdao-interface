@@ -1,16 +1,14 @@
 import GoogleNearbyIcon from "@/icons/logo";
-import QuestionCircleIcon from "@/icons/question";
-import TimelineIcon from "@/icons/timeline";
+import { Link } from "react-router-dom";
+
 export default function Scroller() {
   return (
     <>
-      <nav className="flex flex-col">
-        <section className="min-h-[70px]">
-          <GoogleNearbyIcon />
-        </section>
+      <nav className="flex flex-col min-h-[70px]">
         <section>
-          <TimelineIcon />
-          <QuestionCircleIcon />
+          <Link to="/proposal">
+            <GoogleNearbyIcon />
+          </Link>
         </section>
       </nav>
     </>
