@@ -1,7 +1,7 @@
 import Layout from "@/layout";
 import { daoAddProposal } from "@/near/Function";
 import { OwnerState } from "@/state";
-import { Kind, KindType, ProposalProps, VoteOption } from "@/types";
+import { Kind, KindType, ProposalInputProps, VoteOption } from "@/types";
 import { DeleteOutlined } from "@ant-design/icons";
 import { Alert, Button, DatePicker, PageHeader, Select, Space } from "antd";
 import { row } from "mathjs";
@@ -58,7 +58,9 @@ const nanoSeconds = (date: Moment | null) =>
 export default function CreateProposalPage() {
   const [maxid, setMaxid] = useState(0);
   const [rows, setRows] = useState<VoteOption[]>([{ id: maxid, value: "" }]);
-  const submit = useMutation((props: ProposalProps) => daoAddProposal(props));
+  const submit = useMutation((props: ProposalInputProps) =>
+    daoAddProposal(props)
+  );
   const owner = useRecoilValue(OwnerState);
 
   const [visible, setVisible] = useState(false);
@@ -246,7 +248,7 @@ export default function CreateProposalPage() {
                           options: rows,
                         };
                       }
-                      const props: ProposalProps = {
+                      const props: ProposalInputProps = {
                         proposer: owner.account_id,
                         title: titleRef.current.value,
                         description: descRef.current.value,

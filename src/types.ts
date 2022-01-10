@@ -35,14 +35,23 @@ export enum KindType {
   VoteKind = "Vote",
 }
 export interface ProposalProps {
-  id?: number;
+  id: number;
   proposer: string;
   title: string;
   description: string;
-  submission_time?: number;
+  submission_time: number;
   proposal_start_time: number;
   proposal_end_time: number;
-  status?: string;
+  status: string;
+  kind: Kind;
+}
+
+export interface ProposalInputProps {
+  proposer: string;
+  title: string;
+  description: string;
+  proposal_start_time: number;
+  proposal_end_time: number;
   kind: Kind;
 }
 

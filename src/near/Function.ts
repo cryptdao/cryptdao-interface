@@ -1,4 +1,11 @@
-import { Citizen, DaoMetadata, PAGE_SIZE, ProposalProps } from "@/types";
+import {
+  Citizen,
+  DaoMetadata,
+  PAGE_SIZE,
+  ProposalInputProps,
+  ProposalProps,
+} from "@/types";
+import { List } from "immutable";
 import { FinalExecutionOutcome } from "near-api-js/lib/providers";
 import { DAO_CONTRACT_ID, MIN_GAS, wallet } from "./Account";
 import { getAmount, getGas } from "./helper";
@@ -51,7 +58,7 @@ export const daoGetCitizen = (account_id: string): Promise<Citizen> => {
 
 export const daoGetProposals = (
   from_index: number
-): Promise<ProposalProps[]> => {
+): Promise<List<ProposalProps>> => {
   return DaoViewFunction({
     methodName: "get_proposals",
     args: { from_index: from_index, limit: PAGE_SIZE },
@@ -59,7 +66,7 @@ export const daoGetProposals = (
 };
 
 export const daoAddProposal = async (
-  props: ProposalProps
+  props: ProposalInputProps
 ): Promise<FinalExecutionOutcome> => {
   return DaoFunctionCall({
     methodName: "add_proposal",

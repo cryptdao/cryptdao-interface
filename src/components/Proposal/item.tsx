@@ -1,6 +1,6 @@
-import { ProposalType } from "@/types";
+import { ProposalProps } from "@/types";
 import { formatDistance } from "date-fns";
-export default function Proposal(props: ProposalType) {
+export default function Proposal(props: ProposalProps) {
   return (
     <>
       <div className="mb-4 transition-colors border-t border-b rounded-none md:border md:rounded-lg bg-skin-block-bg timeline-proposal">
@@ -18,7 +18,7 @@ export default function Proposal(props: ProposalType) {
               <span className="flex items-center mt-2 space-x-1">
                 <span className="mt-1">
                   {formatDistance(
-                    new Date(props.submission_time / 1000000),
+                    new Date(props.submission_time! / 1000000),
                     new Date(),
                     {
                       addSuffix: true,
