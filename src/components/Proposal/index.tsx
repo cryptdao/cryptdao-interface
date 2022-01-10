@@ -1,7 +1,7 @@
 export default function ProposalHeader() {
   return (
     <>
-      <div className="flex px-4 mb-3 md:px-0">
+      <div id="header" className="flex px-4 mb-3 md:px-0">
         <div className="flex-auto">
           <div>CryptDAO</div>
           <div className="flex items-center flex-auto">
@@ -17,5 +17,5 @@ export default function ProposalHeader() {
         </div>
       </div>
     </>
-  )
+  );
 }

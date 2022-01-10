@@ -23,7 +23,7 @@ export const HeaderLink = styled.a`
 export default function Header() {
   return (
     <>
-      <div>
+      <nav>
         <HeaderHeight />
         <HeaderWrapper className="left-0 fixed top-0 sm:left-[68px]">
           <nav className="w-full border-b bg">
@@ -37,7 +37,7 @@ export default function Header() {
             </div>
           </nav>
         </HeaderWrapper>
-      </div>
+      </nav>
     </>
   );
 }
