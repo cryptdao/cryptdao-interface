@@ -1,22 +1,24 @@
-import Scroller from "@/components/Scroller";
-import React from "react";
-import Header from "./Header";
+import Scroller from '@/components/Scroller'
+import React from 'react'
+import Header from './Header'
 
 export default function Layout(props: { children: React.ReactFragment }) {
   return (
     <>
       <div className="flex">
-        <aside className="fixed z-40 flex-1 flex-shrink-0 float-left w-[70px] p-3 border-2 h-screen">
+        <aside className="fixed z-40 flex-1 flex-shrink-0 w-[70px] p-3 border-2 h-screen">
           <Scroller />
         </aside>
+        <div className="border-2 border-red sm:left-[70px]">
+          <nav className="fixed left-0 w-full h-8 border-2 border-yellow-500">
+            <Header />
+          </nav>
 
-        <main className="ml-[70px] w-full">
-          <Header />
-          <section id="content" className="flex-auto px-0 mx-auto mt-4 md:px-4">
+          <main className="border-2 border-green ml-[70px] w-full flex-auto">
             {props.children}
-          </section>
-        </main>
+          </main>
+        </div>
       </div>
     </>
-  );
+  )
 }

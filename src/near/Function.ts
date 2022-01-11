@@ -65,6 +65,13 @@ export const daoGetProposals = (
   });
 };
 
+export const daoGetProposal = (id: number): Promise<ProposalProps> => {
+  return DaoViewFunction({
+    methodName: "get_proposal",
+    args: { id: id },
+  });
+};
+
 export const daoAddProposal = async (
   props: ProposalInputProps
 ): Promise<FinalExecutionOutcome> => {

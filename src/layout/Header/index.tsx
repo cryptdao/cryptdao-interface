@@ -23,21 +23,19 @@ export const HeaderLink = styled.a`
 export default function Header() {
   return (
     <>
-      <nav>
-        <HeaderHeight />
-        <HeaderWrapper className="left-0 fixed top-0 sm:left-[68px]">
-          <nav className="w-full border-b bg">
-            <div className="px-4 max-w-[1012px] mx-auto">
-              <HeaderCenter className="flex items-center">
-                <div className="flex items-center flex-auto">
-                  <HeaderLink>CryptDAO</HeaderLink>
-                </div>
-                <Account />
-              </HeaderCenter>
-            </div>
-          </nav>
-        </HeaderWrapper>
-      </nav>
+      <HeaderHeight />
+      <HeaderWrapper>
+        <nav className="w-full border-b bg">
+          <div className="px-4 max-w-[1012px] mx-auto">
+            <HeaderCenter className="flex items-center">
+              <div className="flex items-center flex-auto">
+                <HeaderLink>CryptDAO</HeaderLink>
+              </div>
+              <Account />
+            </HeaderCenter>
+          </div>
+        </nav>
+      </HeaderWrapper>
     </>
   );
 }

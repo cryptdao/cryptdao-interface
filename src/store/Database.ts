@@ -4,12 +4,12 @@ import Dexie from "dexie";
 class Database extends Dexie {
   public tokens: Dexie.Table<TokenMetadata>;
   public constructor() {
-    super('vite-dex');
+    super("vite-dex");
     this.version(1).stores({
       tokens:
-        'id, name, symbol, decimals, icon, ref, near, total, amountLabel, amount',
+        "id, name, symbol, decimals, icon, ref, near, total, amountLabel, amount",
     });
-    this.tokens = this.table('tokens');
+    this.tokens = this.table("tokens");
   }
 
   public allTokens() {
